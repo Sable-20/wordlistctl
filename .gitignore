@@ -5,6 +5,7 @@ trunk/
 /real-repo/
 /repo/
 /build/
+/builddir/
 /chroot/
 /alt/
 /logs
