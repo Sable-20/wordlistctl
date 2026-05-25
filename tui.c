@@ -6,6 +6,22 @@
 #include "download.h"
 #include "config.h"
 
+static void trim_whitespace(char *str)
+{
+
+    int len = strlen(str);
+
+    while (len > 0 &&
+           (str[len - 1] == ' ' ||
+            str[len - 1] == '\n' ||
+            str[len - 1] == '\t'))
+    {
+
+        str[len - 1] = '\0';
+        len--;
+    }
+}
+
 static void open_config_menu(config_t *cfg)
 {
     FIELD *fields[3];
@@ -178,6 +194,9 @@ static void open_config_menu(config_t *cfg)
                 "%s",
                 field_buffer(fields[1], 0));
 
+            trim_whitespace(cfg->useragent);
+            trim_whitespace(cfg->download_path);
+
             unpost_form(form);
 
             free_form(form);
@@ -245,8 +264,7 @@ void start_tui(wordlist_t *table)
             "wordlistctl/2.0",
 
         .download_path =
-            "/tmp"
-    };
+            "/tmp"};
 
     while (running)
     {
@@ -437,6 +455,12 @@ void start_tui(wordlist_t *table)
         case 'i':
             char output_path[1024];
             sprintf(output_path, "%s/%s.txt", cfg.download_path, cur->name);
+            mvwprintw(
+                status_win,
+                1,
+                2,
+                "Downloading: %s",
+                output_path);
             download_file(cur->url, output_path, cfg.useragent);
             running = 0;
             break;
