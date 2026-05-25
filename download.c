@@ -9,7 +9,8 @@ static size_t write_data(void *ptr,
 }
 
 int download_file(const char *url,
-                  const char *output_path)
+                  const char *output_path,
+                  const char *user_agent)
 {
     CURL *curl;
     CURLcode res;
@@ -30,6 +31,7 @@ int download_file(const char *url,
     }
 
     curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, user_agent);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
 
