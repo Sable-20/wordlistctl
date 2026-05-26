@@ -1,0 +1,138 @@
+\chapter{Description }
+\hypertarget{md_README}{}\label{md_README}\index{Description@{Description}}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+
+
+Script to fetch, install, update and search wordlist archives from websites offering wordlists with more than 6400 wordlists available.
+
+In the latest version of the Blackarch Linux it has been added to \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}/usr/share/wordlists/\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} directory.\hypertarget{md_README_autotoc_md1}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_README_autotoc_md1}
+{\ttfamily pacman -\/S wordlistctl}\hypertarget{md_README_autotoc_md2}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_README_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ wordlistctl\ [-\/h]\ [-\/v]\ \{fetch,search,list\}\ ...}
+\DoxyCodeLine{}
+\DoxyCodeLine{Fetch,\ install\ and\ search\ wordlist\ archives\ from\ websites.}
+\DoxyCodeLine{}
+\DoxyCodeLine{positional\ arguments:}
+\DoxyCodeLine{\ \ \{fetch,search,list\}}
+\DoxyCodeLine{\ \ \ \ fetch\ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ wordlists}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ search\ \ \ \ \ \ \ \ \ \ \ \ \ search\ wordlists}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ list\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ list\ wordlists}
+\DoxyCodeLine{}
+\DoxyCodeLine{optional\ arguments:}
+\DoxyCodeLine{\ \ -\/h,\ -\/-\/help\ \ \ \ \ \ \ \ \ \ \ show\ this\ help\ message\ and\ exit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/v,\ -\/-\/version\ \ \ \ \ \ \ \ show\ program's\ version\ number\ and\ exit}
+
+\end{DoxyCode}
+ \hypertarget{md_README_autotoc_md3}{}\doxysubsection{\texorpdfstring{Fetch Options}{Fetch Options}}\label{md_README_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ wordlistctl\ fetch\ [-\/h]\ [-\/l\ WORDLIST\ [WORDLIST\ ...]]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/g\ \{usernames,passwords,discovery,fuzzing,misc\}\ [\{usernames,passwords,discovery,fuzzing,misc\}\ ...]]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/d]\ [-\/w\ WORKERS]\ [-\/u\ USERAGENT]\ [-\/b\ BASEDIR]\ fetch\_term}
+\DoxyCodeLine{}
+\DoxyCodeLine{positional\ arguments:}
+\DoxyCodeLine{\ \ fetch\_term\ \ \ \ \ \ \ \ \ \ \ fetch\ string\ filter}
+\DoxyCodeLine{}
+\DoxyCodeLine{optional\ arguments:}
+\DoxyCodeLine{\ \ -\/h,\ -\/-\/help\ \ \ \ \ \ \ \ \ \ \ \ show\ this\ help\ message\ and\ exit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/l\ WORDLIST\ [WORDLIST\ ...],\ -\/-\/wordlist\ WORDLIST\ [WORDLIST\ ...]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wordlist\ to\ fetch}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/g,\ -\/-\/group\ \{group\}\ [\{group\}\ ...]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wordlist\ group\ to\ fetch}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ available\ groups:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usernames}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ passwords}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ discovery}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fuzzing}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ misc}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/d,\ -\/-\/decompress\ \ \ \ \ \ decompress\ and\ remove\ archive}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/w\ WORKERS,\ -\/-\/workers\ WORKERS}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\ workers\ [default:\ 10]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/u\ USERAGENT,\ -\/-\/useragent\ USERAGENT}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ user\ agent\ [default:\ wordlistctl/v0.9.x]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/b\ BASEDIR,\ -\/-\/base-\/dir\ BASEDIR}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wordlists\ base\ directory\ [default:\ /usr/share/wordlists]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md4}{}\doxysubsection{\texorpdfstring{Search Options}{Search Options}}\label{md_README_autotoc_md4}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ wordlistctl\ search\ \ [-\/h]\ [-\/l]\ [-\/b\ BASEDIR]\ search\_term}
+\DoxyCodeLine{}
+\DoxyCodeLine{positional\ arguments:}
+\DoxyCodeLine{\ \ search\_term\ \ \ \ \ \ \ \ \ \ \ what\ to\ search}
+\DoxyCodeLine{}
+\DoxyCodeLine{optional\ arguments:}
+\DoxyCodeLine{\ \ -\/h,\ -\/-\/help\ \ \ \ \ \ \ \ \ \ \ \ show\ this\ help\ message\ and\ exit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/l,\ -\/-\/local\ \ \ \ \ \ \ \ \ \ \ search\ local\ archives}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/b\ BASEDIR,\ -\/-\/base-\/dir\ BASEDIR}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wordlists\ base\ directory\ [default:\ /usr/share/wordlists]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/f\ INDEX\ [INDEX\ ...],\ -\/-\/fetch\ INDEX\ [INDEX\ ...]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ the\ wordlists\ at\ the\ given\ indexes\ in\ the\ search\ results,\ see}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ options\ for\ additional\ options}
+\DoxyCodeLine{}
+\DoxyCodeLine{fetch\ options:}
+\DoxyCodeLine{\ \ -\/d,\ -\/-\/decompress\ \ \ \ \ \ decompress\ and\ remove\ archive}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/w\ WORKERS,\ -\/-\/workers\ WORKERS}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\ workers\ [default:\ 10]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/u\ USERAGENT,\ -\/-\/useragent\ USERAGENT}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser\ user\ agent\ [default:\ wordlistctl/v0.9.x]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md5}{}\doxysubsection{\texorpdfstring{List Options}{List Options}}\label{md_README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ wordlistctl\ list\ [-\/h]\ [-\/g\ \{usernames,passwords,discovery,fuzzing,misc\}]}
+\DoxyCodeLine{}
+\DoxyCodeLine{optional\ arguments:}
+\DoxyCodeLine{\ \ -\/h,\ -\/-\/help\ \ \ \ \ \ \ \ \ \ \ \ show\ this\ help\ message\ and\ exit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/g,\ -\/-\/group\ \{group\}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ show\ all\ wordlists\ in\ group}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ available\ groups:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usernames}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ passwords}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ discovery}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fuzzing}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ misc}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/f\ INDEX\ [INDEX\ ...],\ -\/-\/fetch\ INDEX\ [INDEX\ ...]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ the\ wordlists\ at\ the\ given\ indexes\ in\ the\ list,\ see}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fetch\ options\ for\ additional\ options}
+\DoxyCodeLine{}
+\DoxyCodeLine{fetch\ options:}
+\DoxyCodeLine{\ \ -\/d,\ -\/-\/decompress\ \ \ \ \ \ decompress\ and\ remove\ archive}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/w\ WORKERS,\ -\/-\/workers\ WORKERS}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\ workers\ [default:\ 10]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ -\/u\ USERAGENT,\ -\/-\/useragent\ USERAGENT}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser\ user\ agent\ [default:\ wordlistctl/v0.9.x]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md6}{}\doxysection{\texorpdfstring{Get Involved}{Get Involved}}\label{md_README_autotoc_md6}
+You can get in touch with the Black\+Arch Linux team. Just check out the following\+:
+
+{\bfseries{Please, send us pull requests!}}
+
+{\bfseries{Web\+:}} \href{https://www.blackarch.org/}{\texttt{https\+://www.\+blackarch.\+org/}}
+
+{\bfseries{Mail\+:}} \href{mailto:team@blackarch.org}{\texttt{team@blackarch.\+org}}
+
+{\bfseries{IRC\+:}} \href{irc://irc.freenode.net/blackarch}{\texttt{irc\+://irc.\+freenode.\+net/blackarch}} 

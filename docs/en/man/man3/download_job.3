@@ -1,0 +1,41 @@
+.TH "download_job" 3 "Version 2.0.1" "wordlistctl" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+download_job
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <download\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBurl\fP [1024]"
+.br
+.ti -1c
+.RI "char \fBoutput_path\fP [512]"
+.br
+.ti -1c
+.RI "char \fBuser_agent\fP [256]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a download job
+
+.PP
+This structure holds the URL, output path, and user agent for individual download tasks\&. It is used to pass information to worker threads that perform the downloads concurrently\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char download_job::output_path[512]"
+Path where the downloaded file will be saved 
+.SS "char download_job::url[1024]"
+URL of the file to download 
+.SS "char download_job::user_agent[256]"
+User agent string for the HTTP request 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for wordlistctl from the source code\&.
