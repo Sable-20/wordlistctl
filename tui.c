@@ -5,6 +5,17 @@
 #include "tui.h"
 #include "download.h"
 #include "config.h"
+#include "decompress.h"
+
+static const char *get_filename_from_url(const char *url)
+{
+    const char *last_slash = strrchr(url, '/');
+    if (last_slash)
+    {
+        return last_slash + 1;
+    }
+    return url; // If no slash found, return the whole URL
+}
 
 static void trim_whitespace(char *str)
 {
@@ -317,7 +328,8 @@ void start_tui(wordlist_t *table)
 
         .download_path =
             "/usr/share/wordlists",
-        .workers = 10};
+        .workers = 10,
+        .decompress = "false"};
 
     while (running)
     {
@@ -472,8 +484,8 @@ void start_tui(wordlist_t *table)
         mvwprintw(status_win,
                   1,
                   2,
-                  "Arrows move | q quit | i to install | c to configure | g filter | a clear filter | %d items | filter %s",
-                  visible_total, strlen(current_group) > 0 ? current_group : "all");
+                  "Arrows move | q quit | i to install | c to configure | g filter | a clear filter | %d items | filter %s | decompress %s",
+                  visible_total, strlen(current_group) > 0 ? current_group : "all", cfg.decompress);
 
         wrefresh(list_win);
         wrefresh(detail_win);
@@ -535,6 +547,14 @@ void start_tui(wordlist_t *table)
                 cfg.useragent);
             int total_jobs = sizeof(jobs) / sizeof(jobs[0]);
             download_workers(jobs, total_jobs, cfg.workers);
+            if (strcmp(cfg.decompress, "true") == 0)
+            {
+                const char *file = get_filename_from_url(cur->url);
+                char *dest;
+                asprintf(&dest, "%s/%s.txt", cfg.download_path, file);
+                decompress_file(output_path, dest);
+                // decompress_file(file);
+            }
             // download_file(cur->url, output_path, cfg.useragent);
             running = 0;
             break;

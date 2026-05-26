@@ -10,6 +10,7 @@ typedef struct config {
     char useragent[256]; /**< User agent string */
     char download_path[512]; /**< Default download path */
     int workers; /**< Number of workers used to download the files */
+    char decompress[5]; /**< Whether to decompress downloaded files (true/false) */
 } config_t;
 
 #endif // CONFIG_H_

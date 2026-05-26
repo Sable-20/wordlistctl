@@ -5,11 +5,12 @@ cc.has_header('uthash.h', required : true)
 
 cjson = dependency('libcjson')
 libcurl = dependency('libcurl')
-libargtable3 = dependency('argtable3')
 libncurses = dependency('ncurses')
+libarchive = dependency('libarchive')
+
 # uthash = dependency('uthash')
 
-src = ['main.c', 'file.c', 'download.c', 'tui.c']
+src = ['main.c', 'file.c', 'download.c', 'tui.c', 'decompress.c']
 
 executable('wordlistctl', 
             src, 
@@ -17,7 +18,7 @@ executable('wordlistctl',
                 cjson, 
                 libcurl, 
                 libncurses,
-                libargtable3
+                libarchive,
             ], 
             link_args : [ 
                 '-lform',
