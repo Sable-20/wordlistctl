@@ -16,7 +16,8 @@ executable('wordlistctl',
             dependencies : [
                 cjson, 
                 libcurl, 
-                libncurses
+                libncurses,
+                libargtable3
             ], 
             link_args : [ 
                 '-lform'

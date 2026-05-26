@@ -2,7 +2,7 @@
 #include "download.h"
 #include "tui.h"
 
-int main()
+int main(int argc, char **argv)
 {
   wordlist_t *table =
       load_repo("repo.json");
@@ -13,7 +13,6 @@ int main()
             "failed to load repo\n");
     return 1;
   }
-
   start_tui(table);
   free_table(table);
 
@@ -55,6 +54,4 @@ int main()
   //               "passwords");
 
   // free_table(table);
-
-  return 0;
 }

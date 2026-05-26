@@ -30,6 +30,8 @@ static void open_config_menu(config_t *cfg)
 
     int ch;
 
+    init_pair(10, COLOR_BLACK, COLOR_CYAN);
+
     fields[0] =
         new_field(
             1,
@@ -81,7 +83,6 @@ static void open_config_menu(config_t *cfg)
     */
 
     form = new_form(fields);
-
     /*
         popup window
     */
@@ -126,7 +127,6 @@ static void open_config_menu(config_t *cfg)
         "Download Path:");
 
     post_form(form);
-
     wrefresh(win);
 
     /*
@@ -264,7 +264,7 @@ void start_tui(wordlist_t *table)
             "wordlistctl/2.0",
 
         .download_path =
-            "/tmp"};
+            "/usr/share/wordlists"};
 
     while (running)
     {
@@ -346,7 +346,7 @@ void start_tui(wordlist_t *table)
             mvwprintw(
                 list_win,
                 i + 1,
-                70,
+                width / 2 - 20,
                 "[%s]",
                 items[idx]->group);
 
@@ -419,7 +419,7 @@ void start_tui(wordlist_t *table)
         mvwprintw(status_win,
                   1,
                   2,
-                  "Arrows move | q quit | i to install | %d items",
+                  "Arrows move | q quit | i to install | c to configure | %d items",
                   total);
 
         wrefresh(list_win);
