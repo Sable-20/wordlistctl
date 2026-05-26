@@ -497,7 +497,28 @@ void start_tui(wordlist_t *table)
                 2,
                 "Downloading: %s",
                 output_path);
-            download_file(cur->url, output_path, cfg.useragent);
+            download_job_t jobs[1];
+
+            snprintf(
+                jobs[0].url,
+                sizeof(jobs[0].url),
+                "%s",
+                cur->url);
+
+            snprintf(
+                jobs[0].output_path,
+                sizeof(jobs[0].output_path),
+                "%s",
+                output_path);
+
+            snprintf(
+                jobs[0].user_agent,
+                sizeof(jobs[0].user_agent),
+                "%s",
+                cfg.useragent);
+            int total_jobs = sizeof(jobs) / sizeof(jobs[0]);
+            download_workers(jobs, total_jobs, cfg.workers);
+            // download_file(cur->url, output_path, cfg.useragent);
             running = 0;
             break;
         case 'c':
