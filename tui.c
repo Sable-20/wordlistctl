@@ -22,9 +22,18 @@ static void trim_whitespace(char *str)
     }
 }
 
-static void open_config_menu(config_t *cfg)
+static void draw_config_labels(WINDOW *win)
 {
-    FIELD *fields[3];
+    mvwprintw(win, 1, 2, "Configuration");
+
+    mvwprintw(win, 2, 2, "User Agent:");
+    mvwprintw(win, 4, 2, "Download Path:");
+    mvwprintw(win, 6, 2, "Workers:");
+}
+
+static void open_config_menu(config_t *cfg, int *height, int *width)
+{
+    FIELD *fields[4];
     FORM *form;
     WINDOW *win;
 
@@ -36,8 +45,8 @@ static void open_config_menu(config_t *cfg)
         new_field(
             1,
             40,
-            2,
-            18,
+            0,
+            20,
             0,
             0);
 
@@ -45,12 +54,20 @@ static void open_config_menu(config_t *cfg)
         new_field(
             1,
             40,
-            4,
-            18,
+            2,
+            20,
             0,
             0);
 
-    fields[2] = NULL;
+    fields[2] = new_field(
+        1,
+        10,
+        4,
+        20,
+        0,
+        0);
+
+    fields[3] = NULL;
 
     /*
         field options
@@ -62,6 +79,10 @@ static void open_config_menu(config_t *cfg)
 
     field_opts_off(
         fields[1],
+        O_AUTOSKIP);
+
+    field_opts_off(
+        fields[2],
         O_AUTOSKIP);
 
     /*
@@ -77,6 +98,13 @@ static void open_config_menu(config_t *cfg)
         fields[1],
         0,
         cfg->download_path);
+
+    char workers[16];
+    snprintf(workers, sizeof(workers), "%d", cfg->workers);
+    set_field_buffer(
+        fields[2],
+        0,
+        workers);
 
     /*
         form
@@ -101,33 +129,40 @@ static void open_config_menu(config_t *cfg)
         form,
         derwin(
             win,
-            6,
-            60,
+            8,
+            64,
             2,
             2));
 
+    // scale_form(form, height, width);
+
     box(win, 0, 0);
 
-    mvwprintw(
-        win,
-        1,
-        2,
-        "Configuration");
+    draw_config_labels(win);
 
-    mvwprintw(
-        win,
-        2,
-        2,
-        "User Agent:");
+    set_current_field(form, fields[0]);
 
-    mvwprintw(
-        win,
-        4,
-        2,
-        "Download Path:");
+    form_driver(form, REQ_END_LINE);
+
+    set_field_back(
+        fields[0],
+        COLOR_PAIR(10));
+
+    set_field_back(
+        fields[1],
+        COLOR_PAIR(10));
+
+    set_field_back(
+        fields[2],
+        COLOR_PAIR(10));
 
     post_form(form);
+    pos_form_cursor(form);
+
+    set_current_field(form, fields[0]);
+    draw_config_labels(win);
     wrefresh(win);
+    refresh();
 
     /*
         input loop
@@ -264,7 +299,8 @@ void start_tui(wordlist_t *table)
             "wordlistctl/2.0",
 
         .download_path =
-            "/usr/share/wordlists"};
+            "/usr/share/wordlists",
+        .workers = 10};
 
     while (running)
     {
@@ -465,7 +501,7 @@ void start_tui(wordlist_t *table)
             running = 0;
             break;
         case 'c':
-            open_config_menu(&cfg);
+            open_config_menu(&cfg, &height, &width);
             break;
         }
 

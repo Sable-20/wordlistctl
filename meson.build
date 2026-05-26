@@ -20,6 +20,7 @@ executable('wordlistctl',
                 libargtable3
             ], 
             link_args : [ 
-                '-lform'
+                '-lform',
+                '-pthread'
             ]
         )

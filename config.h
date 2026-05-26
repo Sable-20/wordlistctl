@@ -4,6 +4,7 @@
 typedef struct config {
     char useragent[256];
     char download_path[512];
+    int workers;
 } config_t;
 
 #endif // CONFIG_H_
