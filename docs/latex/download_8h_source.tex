@@ -1,0 +1,26 @@
+\doxysection{download.\+h}
+\hypertarget{download_8h_source}{}\label{download_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DOWNLOAD\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DOWNLOAD\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <curl/curl.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdownload__job}{download\_job}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{char}\ url[1024];}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{char}\ output\_path[512];}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{char}\ user\_agent[256];}
+\DoxyCodeLine{00013\ \}\ download\_job\_t;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{int}\ download\_file(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ url,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ output\_path,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ user\_agent);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ download\_workers(download\_job\_t*\ jobs,\ \textcolor{keywordtype}{int}\ total\_jobs,\ \textcolor{keywordtype}{int}\ workers);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DOWNLOAD\_H\_}}
+
+\end{DoxyCode}
