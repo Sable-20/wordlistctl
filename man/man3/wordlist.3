@@ -1,0 +1,51 @@
+.TH "wordlist" 3 "Version 2.0.1" "wordlistctl" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wordlist
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <file\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBname\fP [256]"
+.br
+.ti -1c
+.RI "char \fBurl\fP [1024]"
+.br
+.ti -1c
+.RI "char \fBsize\fP [64]"
+.br
+.ti -1c
+.RI "char \fBgroup\fP [64]"
+.br
+.ti -1c
+.RI "UT_hash_handle \fBhh\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a wordlist entry
+
+.PP
+This structure holds the name, URL, size, and group of a wordlist entry\&. It is used to store and manage the wordlist entries loaded from the repository JSON file\&. The \fRUT_hash_handle\fP is included to allow this structure to be used with the \fRuthash\fP library for efficient hash table management\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char wordlist::group[64]"
+Group to which the wordlist entry belongs 
+.SS "UT_hash_handle wordlist::hh"
+Hash handle for uthash 
+.SS "char wordlist::name[256]"
+Name of the wordlist entry 
+.SS "char wordlist::size[64]"
+Size of the file 
+.SS "char wordlist::url[1024]"
+URL of the file to download 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for wordlistctl from the source code\&.

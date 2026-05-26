@@ -1,0 +1,46 @@
+.TH "config" 3 "Version 2.0.1" "wordlistctl" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+config
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <config\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBuseragent\fP [256]"
+.br
+.ti -1c
+.RI "char \fBdownload_path\fP [512]"
+.br
+.ti -1c
+.RI "int \fBworkers\fP"
+.br
+.ti -1c
+.RI "char \fBdecompress\fP [5]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Configuration structure for wordlistctl
+
+.PP
+This structure holds the user agent string, the default download path and the number of workers used to download the files\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char config::decompress[5]"
+Whether to decompress downloaded files (true/false) 
+.SS "char config::download_path[512]"
+Default download path 
+.SS "char config::useragent[256]"
+User agent string 
+.SS "int config::workers"
+Number of workers used to download the files 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for wordlistctl from the source code\&.
