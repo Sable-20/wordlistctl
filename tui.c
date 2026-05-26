@@ -22,6 +22,26 @@ static void trim_whitespace(char *str)
     }
 }
 
+static int build_visible_items(
+    wordlist_t *table,
+    wordlist_t **visible,
+    const char *group)
+{
+    int count = 0;
+
+    wordlist_t *wl;
+
+    for (wl = table; wl != NULL; wl = wl->hh.next)
+    {
+        if (strlen(group) == 0 || strcmp(wl->group, group) == 0)
+        {
+            visible[count++] = wl;
+        }
+    }
+
+    return count;
+}
+
 static void draw_config_labels(WINDOW *win)
 {
     mvwprintw(win, 1, 2, "Configuration");
@@ -276,23 +296,20 @@ void start_tui(wordlist_t *table)
 
     int total = HASH_COUNT(table);
 
-    wordlist_t **items =
-        malloc(sizeof(wordlist_t *) * total);
-
-    int i = 0;
-    wordlist_t *wl;
-
-    for (wl = table;
-         wl != NULL;
-         wl = wl->hh.next)
-    {
-
-        items[i++] = wl;
-    }
-
     int selected = 0;
     int scroll = 0;
+    int i = 0;
     int running = 1;
+    char current_group[64] = "";
+
+    wordlist_t **visible_items =
+        malloc(sizeof(wordlist_t *) * total);
+
+    int visible_total =
+        build_visible_items(
+            table,
+            visible_items,
+            current_group);
 
     config_t cfg = {
         .useragent =
@@ -363,7 +380,7 @@ void start_tui(wordlist_t *table)
 
         for (i = 0;
              i < visible_rows &&
-             i + scroll < total;
+             i + scroll < visible_total;
              i++)
         {
 
@@ -378,13 +395,13 @@ void start_tui(wordlist_t *table)
                 i + 1,
                 2,
                 "%s ",
-                items[idx]->name);
+                visible_items[idx]->name);
             mvwprintw(
                 list_win,
                 i + 1,
                 width / 2 - 20,
                 "[%s]",
-                items[idx]->group);
+                visible_items[idx]->group);
 
             if (idx == selected)
                 wattroff(list_win,
@@ -396,7 +413,7 @@ void start_tui(wordlist_t *table)
         */
 
         wordlist_t *cur =
-            items[selected];
+            visible_items[selected];
 
         wattron(detail_win,
                 COLOR_PAIR(2));
@@ -455,8 +472,8 @@ void start_tui(wordlist_t *table)
         mvwprintw(status_win,
                   1,
                   2,
-                  "Arrows move | q quit | i to install | c to configure | %d items",
-                  total);
+                  "Arrows move | q quit | i to install | c to configure | g filter | a clear filter | %d items | filter %s",
+                  visible_total, strlen(current_group) > 0 ? current_group : "all");
 
         wrefresh(list_win);
         wrefresh(detail_win);
@@ -479,7 +496,7 @@ void start_tui(wordlist_t *table)
 
         case KEY_DOWN:
 
-            if (selected < total - 1)
+            if (selected < visible_total - 1)
                 selected++;
 
             break;
@@ -524,6 +541,48 @@ void start_tui(wordlist_t *table)
         case 'c':
             open_config_menu(&cfg, &height, &width);
             break;
+        case 'g':
+        {
+            echo();
+            curs_set(1);
+
+            mvwprintw(
+                status_win,
+                1,
+                2,
+                "Filter group: ");
+
+            wgetnstr(
+                status_win,
+                current_group,
+                sizeof(current_group) - 1);
+
+            noecho();
+            curs_set(0);
+
+            visible_total =
+                build_visible_items(
+                    table,
+                    visible_items,
+                    current_group);
+
+            selected = 0;
+            scroll = 0;
+
+            break;
+        }
+        case 'a':
+            current_group[0] = '\0';
+            visible_total =
+                build_visible_items(
+                    table,
+                    visible_items,
+                    current_group);
+
+            selected = 0;
+            scroll = 0;
+
+            break;
         }
 
         delwin(list_win);
@@ -531,6 +590,6 @@ void start_tui(wordlist_t *table)
         delwin(status_win);
     }
 
-    free(items);
+    free(visible_items);
     endwin();
 }
